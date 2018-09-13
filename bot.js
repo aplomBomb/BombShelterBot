@@ -13,10 +13,10 @@ bot.on('ready', function() {
         var hour = date.getHours();
         if (hour = 0) {
             console.log("it is midnight");
-            setTimeout(timeCheck, 360000);
+            setTimeout(timeCheck, 3600000);
         } else {
             console.log("it is not midnight"); 
-            setTimeout(timeCheck, 360000);              
+            setTimeout(timeCheck, 3600000);              
         }
     } setTimeout(timeCheck, 5000);
 } 
