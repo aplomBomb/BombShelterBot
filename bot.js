@@ -5,14 +5,19 @@ var bot = new Discord.Client({
     autorun: true
 });
 
+var date = new Date();
+var dingDong;
+
 bot.on('ready', function() {
     console.log('Logged in as %s - %s\n', bot.username, bot.id);
     function timeCheck() {
         var constantLoop = 1;
-        var date = new Date();
+        
         var hour = date.getHours();
         if (hour = 0) {
             console.log("it is midnight");
+            let rollID = "484838319117565952";
+            let membersWithRole 
             setTimeout(timeCheck, 3600000);
         } else {
             console.log("it is not midnight"); 
