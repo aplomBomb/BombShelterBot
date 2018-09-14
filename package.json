@@ -2,10 +2,9 @@
   "name": "RoyalDingDongAppointer",
   "version": "1.0.0",
   "description": "DingDong of the Day Appointer Bot",
-  "main": "bot.js",
+  "main": "client.js",
   "author": "HalcyonBomb",
   "dependencies": {
-    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "discord.js": "^11.4.2",
     "winston": "^3.1.0"
   }
