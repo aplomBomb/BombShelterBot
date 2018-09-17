@@ -1,28 +1,36 @@
 const Discord = require('discord.js');
+const config = require('config.json');
 const client = new Discord.Client();
 
-var date = new Date();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  async function timeCheck() {
-    var hour = date.getHours();
-    if (hour === 3) {
+    function timeCheck() {
+      var date = new Date();
+      var hour = date.getHours();
+      if (hour === 8) {
       console.log("It is midnight, appointing new DingDong of the Day");
-      var guild = client.guilds.get("471689270399336448");
-        var dingDongRole = guild.roles.get("484838319117565952");
-        var dingDongMember = guild.roles.get("484838319117565952").members;
-        dingDongMember.forEach(member => {
-        member.removeRole("484838319117565952");
-        });       
-        var newDingDong = guild.members.random();
-        await newDingDong.addRole("484838319117565952");
-        console.log(newDingDong);
-                           
-      setTimeout(timeCheck, 10000);
+
+      var guild = client.guilds.get(config.guildID);
+      var dingDongMember = guild.roles.get(config.dingDongRole).members;
+
+
+      dingDongMember.forEach(member => {       
+        member.removeRole(config.dingDongRole).then(setTimeout(helloDingDong, 1000)).catch(console.error);    
+      });
+      
+       
+  function helloDingDong() {
+    var newDingDong = guild.members.random();
+    newDingDong.addRole(config.dingDongRole).then(console.log(newDingDong)).catch(console.error);
+    var dingDongChannel = guild.channels.get(config.speechChannel).send("**Congratulations** " + newDingDong + " **! You're DingDong of the Day! SPEECH! SPEECH! SPEECH!**");
+  };
+
+                                   
+      setTimeout(timeCheck, 86400000);
     } else {
       console.log("It is not midnight");
-      setTimeout(timeCheck, 10000);
+      setTimeout(timeCheck, 3600000);
     }
   } setTimeout(timeCheck, 1000);
 });
@@ -33,4 +41,4 @@ client.on('message', msg => {
   }
 });
 
-client.login('NDg5NTI3MDU5NTI2NDUxMjIw.DnyX6g.Zd0TwdY6DMGZg6SyuqdE3anhenE');
+client.login(config.token);
