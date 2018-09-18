@@ -1,0 +1,10 @@
+{
+    "user" : {
+        "name" : "rex",
+        "email" : "dingdong@aol.com"
+    },
+    "user2" : {
+        "name" : "sarah",
+        "email" : "sarahisold@gmail.com"
+    }
+}
