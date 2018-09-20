@@ -42,15 +42,17 @@ client.on('ready', () => {
       setTimeout(timeCheck, 86400000);
     } else {
       try {
-        const blFile = fs.readFileSync(__dirname + "/blackList.json", function (error, data) {
-          console.log(error);
-          console.log(data);
+        var guild = client.guilds.get(config.guildID);
+        var dingDongMember = guild.roles.get(config.dingDongRole).members;
+        const blackList = [dingDongMember];
+        console.log(blackList);
+        const blFile = fs.writeFileSync(__dirname + "/blackList.json", blackList, function (error, data) {
         });
+        
       } catch (error) {
         console.log(error);
       }
       
-      const blackList = [];
       console.log("It is not midnight");
       setTimeout(timeCheck, 3600000);
     }
