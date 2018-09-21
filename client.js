@@ -36,7 +36,9 @@ client.on('ready', () => {
       try {
         newDingDong.addRole(config.dingDongRole).then(console.log(newDingDong)).catch(console.error); //assign new member the ddotd role
         let blackListLatest = blackListString + dingDongString; //add new member stringed entry to blackList
-        var dingDongChannel = guild.channels.get(config.speechChannel).send("**Congratulations** " + newDingDong + " **! You're DingDong of the Day! SPEECH! SPEECH! SPEECH!**").delete(43200000).then(ms);
+        var dingDongChannel = guild.channels.get(config.speechChannel).send("**Congratulations**" + newDingDong + "**! You're DingDong of the Day! SPEECH! SPEECH! SPEECH!**").then(msg => {
+          msg.delete(86400000)
+        }).catch(console.log("Message sent to dingdong-speeches channel"));
         fs.writeFile("./blackList.json", blackListLatest, function (error, data) { //write updated blackList to file
           console.log("BlackList updated");
         });
@@ -51,7 +53,6 @@ client.on('ready', () => {
                                    
       setTimeout(timeCheck, 86400000);
     } else {
-      
       console.log("It is not 8am");
       setTimeout(timeCheck, 3600000);
     }
