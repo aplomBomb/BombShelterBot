@@ -1,3 +1,4 @@
 #For not staging config.json containing sensitive server information
 
 config.json
+blackList.json
