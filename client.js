@@ -9,7 +9,7 @@ client.on('ready', () => {
     function timeCheck() {
       var date = new Date();
       var hour = date.getHours();
-      if (hour === 8) {
+      if (hour === 16) {
       console.log("It is 8am, appointing new DingDong of the Day");
 
       var guild = client.guilds.get(config.guildID);
@@ -21,19 +21,17 @@ client.on('ready', () => {
       });
       
        
-   function helloDingDong() {
+   async function helloDingDong() {
     let newDingDong = guild.members.random(); //pick a random server member
     let dingDongString = JSON.stringify(newDingDong); //convert that member array to json string
     let dingDongObject = JSON.parse(dingDongString); //convert member string to object
-    let blackListString = fs.readFileSync("./blackList.json"); //read contents of 'blackList.json'
-    console.log("blacklist reading successful");
+    let blackListString = await fs.readFileSync("./blackList.json"); //read contents of 'blackList.json'
+    console.log(blackListString);
   
-    try {
       if (blackListString.includes(dingDongString)) {  //check if member is found in the blackList array, if true, restart function after 250ms
         console.log("Selected member present in blacklist, picking new random member");
         setTimeout(helloDingDong, 3000);
       } else
-      try {
         newDingDong.addRole(config.dingDongRole).then(console.log(newDingDong)).catch(console.error); //assign new member the ddotd role
         let blackListLatest = blackListString + dingDongString; //add new member stringed entry to blackList
         var dingDongChannel = guild.channels.get(config.speechChannel).send("**Congratulations**" + newDingDong + "**! You're DingDong of the Day! SPEECH! SPEECH! SPEECH!**").then(msg => {
@@ -42,12 +40,6 @@ client.on('ready', () => {
         fs.writeFile("./blackList.json", blackListLatest, function (error, data) { //write updated blackList to file
           console.log("BlackList updated");
         });
-      } catch (error) {
-        console.log(error);
-      }
-    } catch (error) {
-      console.log(error);
-    } 
   };
 
                                    
